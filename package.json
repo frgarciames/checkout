@@ -1,0 +1,23 @@
+{
+  "workspaces": [
+    "packages/*"
+  ],
+  "name": "@finetwork/checkout-root",
+  "private": true,
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "repository": "https://github.com/finetwork-os/checkout",
+  "scripts": {
+    "postinstall": "lerna bootstrap",
+    "dev": "lerna exec --scope=website yarn start",
+    "build-website": "lerna exec --scope=website yarn build",
+    "start-website": "lerna exec --scope=website yarn serve",
+    "build-library": "lerna exec --scope=@finetwork/checkout yarn build",
+    "publish-library": "lerna exec --scope=@finetwork/checkout yarn publish-library"
+  },
+  "devDependencies": {
+    "lerna": "^4.0.0",
+    "prettier": "^2.2.1",
+    "typescript": "^4.3.5"
+  }
+}
