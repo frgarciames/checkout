@@ -22,13 +22,12 @@ module.exports = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+          editUrl: 'https://github.com/finetwork-os/checkout',
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/main/website/blog/',
+          editUrl: 'https://github.com/finetwork-os/checkout',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -48,7 +47,7 @@ module.exports = {
         },
         items: [
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/finetwork-os/checkout',
             label: 'GitHub',
             position: 'right',
           },
