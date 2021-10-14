@@ -42,8 +42,8 @@ module.exports = {
       navbar: {
         title: 'Checkout SDK',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          alt: 'Finetwork logo',
+          src: 'img/fi-logo.jpeg',
         },
         items: [
           {
