@@ -1,10 +1,17 @@
 export interface Address {
-  postalCode: string;
-  door: string;
-  floor: string;
-  locality: string;
-  name: string;
-  number: number;
-  province: string;
-  type: number;
+  cp: string
+  door: string
+  floor: string
+  city: string
+  street: string
+  number: number
+  province: {
+    id: number
+    name: string
+    value: string
+    zone: string
+  }
+  streetType: {
+    id: string
+  }
 }

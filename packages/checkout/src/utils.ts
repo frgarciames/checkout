@@ -1,8 +1,17 @@
+import {
+  FiberProduct,
+  InsuranceProduct,
+  MobileProduct,
+  TvProduct,
+} from './types/Product'
+
 import { Offer } from './types/Offer'
+import { OrderLine } from './types/Order'
 
 export const cloneMap = (map: Map<string, any>) => new Map(map)
 export const offersArrToMap = (arr: Offer[]) =>
   new Map(arr.map((i) => [i.uniqueId, i]))
+export const isServer = () => typeof window === 'undefined'
 export const initialAddress = {
   door: '',
   floor: '',
@@ -24,6 +33,65 @@ export const initialClient = {
   phone: '',
   secondSurname: '',
   surname: '',
+}
+
+export const offerToOrderLines = ({
+  id,
+  promotionId,
+  additionalOffers,
+  products,
+}: Offer): OrderLine<any>[] => {
+  const orderLines: OrderLine<any>[] = products.map((product) => {
+    let orderLine: OrderLine<any> = {
+      offerId: id,
+      promotionId,
+      convergenceId: product.convergenceId,
+      productId: product.id,
+      providerId: product.providerId,
+      dtype: product.dtype,
+      mandatory: product.mandatory,
+    }
+    switch (product.dtype) {
+      case 'orderlinefiber':
+        orderLine = {
+          homeId: product.homeId,
+          installationAddress: product.installationAddress,
+          ...orderLine,
+        } as OrderLine<FiberProduct>
+        break
+      case 'orderlineinsurance':
+        orderLine = {
+          enabled: product.enabled,
+          ...orderLine,
+        } as OrderLine<InsuranceProduct>
+        break
+      case 'orderlinephoneline':
+        orderLine = {
+          icc: product.icc,
+          msisdn: product.msisdn,
+          donorOperatorId: product.donorOperatorId,
+          operationType: product.operationType,
+          ...orderLine,
+        } as OrderLine<MobileProduct>
+        break
+      case 'orderlinetv':
+        orderLine = {
+          email: product.email,
+          ...orderLine,
+        } as OrderLine<TvProduct>
+        break
+      default:
+        break
+    }
+    return orderLine
+  })
+  if (additionalOffers && additionalOffers.size > 0) {
+    return [
+      ...orderLines,
+      ...Array.from(additionalOffers.values()).map(offerToOrderLines),
+    ]
+  }
+  return orderLines
 }
 
 type SetFn = (target: any, name: string | symbol, value) => boolean | void

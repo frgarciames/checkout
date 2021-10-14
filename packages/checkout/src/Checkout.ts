@@ -1,22 +1,12 @@
-import {
-  cloneMap,
-  initialAddress,
-  initialClient,
-  offersArrToMap,
-} from './utils'
-import mitt, { MittEmitter } from './mitt'
-
 import { Address } from './types/Address'
 import { Client } from './types/Client'
-import { Offer } from './types/Offer'
-import { ServiceProduct } from './types/Product'
-import { v4 as uuidv4 } from 'uuid'
 
 export const checkoutEvents = ['clientChange', 'shippingAddressChange'] as const
 
 export type CheckoutArgs = {
   storage?: Storage
-  url?: string
+  urlClient?: string
+  urlOrder?: string
   prefix?: string
 }
 
@@ -30,10 +20,12 @@ export class Checkout {
   private _shippingAddress: Address
   private _client: Client
   private _storage: Storage
+  private _urlClient: string
+  private _urlOrder: string
   CHECKOUT_SHIPPING_ADDRESS_KEY = '_checkout_shipping'
   CHECKOUT_CLIENT_KEY = '_checkout_client'
 
-  constructor({ storage, url, prefix = 'fi' }: CheckoutArgs) {
+  constructor({ storage, urlClient, urlOrder, prefix = 'fi' }: CheckoutArgs) {
     this.CHECKOUT_SHIPPING_ADDRESS_KEY =
       prefix + this.CHECKOUT_SHIPPING_ADDRESS_KEY
     this.CHECKOUT_CLIENT_KEY = prefix + this.CHECKOUT_CLIENT_KEY
@@ -44,13 +36,15 @@ export class Checkout {
       clientInStorage = storage.getItem(this.CHECKOUT_CLIENT_KEY)
     }
     this._storage = storage
+    this._urlClient = urlClient
+    this._urlOrder = urlOrder
     this.shippingAddress = addressInStorage
       ? JSON.parse(addressInStorage)
       : null
     this.client = clientInStorage ? JSON.parse(clientInStorage) : null
   }
 
-  get getShippingAddress(): Address {
+  get shippingAddress(): Address {
     return this._shippingAddress
   }
 
@@ -92,5 +86,21 @@ export class Checkout {
 
   get storage(): Storage {
     return this._storage
+  }
+
+  get urlClient(): string {
+    return this._urlClient
+  }
+
+  set urlClient(url: string) {
+    this._urlClient = url
+  }
+
+  get urlOrder(): string {
+    return this._urlOrder
+  }
+
+  set urlOrder(url: string) {
+    this._urlOrder = url
   }
 }

@@ -1,14 +1,9 @@
-import {
-  FiberProduct,
-  InsuranceProduct,
-  MobileProduct,
-  TvProduct,
-} from './Product'
+import { ServiceProduct } from './Product'
 
 export interface Offer {
   id: number
   uniqueId?: string
   promotionId: number
-  products?: (FiberProduct | InsuranceProduct | MobileProduct | TvProduct)[]
+  products?: ServiceProduct[]
   additionalOffers?: Map<string, Offer>
 }

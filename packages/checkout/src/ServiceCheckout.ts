@@ -4,10 +4,19 @@ import {
   UpdateParams,
   checkoutEvents,
 } from './Checkout'
-import { cloneMap, getCheckoutProxy, offersArrToMap } from './utils'
+import {
+  cloneMap,
+  getCheckoutProxy,
+  isServer,
+  offerToOrderLines,
+  offersArrToMap,
+} from './utils'
 import mitt, { MittEmitter } from './mitt'
 
+import { Client } from './types/Client'
 import { Offer } from './types/Offer'
+import { Operator } from './types/Operator'
+import { Order } from './types/Order'
 import { ServiceProduct } from './types/Product'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -53,6 +62,11 @@ serviceCheckoutEvents.forEach((event) => {
 
 export class ServiceCheckout extends Checkout {
   private _offers: Map<string, Offer>
+  private _acceptAdvertising: boolean = false
+  private _shopId: number = 99
+  private _operator: Operator = {
+    id: 1,
+  }
   CHECKOUT_OFFERS_KEY = '_checkout_offers'
 
   events: MittEmitter<ServiceCheckoutEvent>
@@ -94,6 +108,30 @@ export class ServiceCheckout extends Checkout {
     this._offers = offers
   }
 
+  get acceptAdvertising(): boolean {
+    return this._acceptAdvertising
+  }
+
+  set acceptAdvertising(acceptAdvertising: boolean) {
+    this._acceptAdvertising = acceptAdvertising
+  }
+
+  get shopId(): number {
+    return this._shopId
+  }
+
+  set shopId(shopId: number) {
+    this._shopId = shopId
+  }
+
+  get operator(): Operator {
+    return this._operator
+  }
+
+  set operator(operator: Operator) {
+    this._operator = operator
+  }
+
   addOffer(offer: Offer) {
     const offers: Map<string, Offer> = cloneMap(this._offers)
     const newOffer: Offer = { ...offer, uniqueId: uuidv4() }
@@ -101,7 +139,6 @@ export class ServiceCheckout extends Checkout {
     if (!offer.products) {
       offer.products = []
     }
-
     this.offers = offers
   }
 
@@ -158,5 +195,68 @@ export class ServiceCheckout extends Checkout {
     )
     offer.products.splice(productIndex, 1)
     this.offers = offers
+  }
+
+  async createClient(mapClient?: (client: Client) => unknown): Promise<Client> {
+    if (isServer()) {
+      throw new Error('Server side not allowed. Use SDK in client environment.')
+    }
+    const client = mapClient ? mapClient(this.client) : this.client
+    try {
+      const data: Client = await (
+        await fetch(this.urlClient, {
+          method: 'POST',
+          body: JSON.stringify(client),
+        })
+      ).json()
+      return data
+    } catch (error) {
+      throw new Error(`Error creating client. Error: ${error}`)
+    }
+  }
+
+  async createOrder(clientId: number, mapOrder?: (offers: Offer[]) => any) {
+    if (isServer()) {
+      throw new Error('Server side not allowed. Use SDK in client environment.')
+    }
+    const offersArr = Array.from(this.offers.values())
+    const offers: any[] = mapOrder ? mapOrder(offersArr) : offersArr
+    const orderLines = [].concat.apply([], offers.map(offerToOrderLines))
+    const order: Order = {
+      acceptAdvertising: this.acceptAdvertising,
+      dtype: 'ordercontractnew',
+      masterOrderId: `${clientId}${Math.floor(Date.now() / 1000)}`,
+      shippingAddress: this.shippingAddress,
+      shopId: this.shopId,
+      clientId,
+      orderLines,
+    }
+    try {
+      const data = await (
+        await fetch(this.urlOrder, {
+          method: 'POST',
+          body: JSON.stringify(order),
+        })
+      ).json()
+      return data
+    } catch (error) {
+      throw new Error(`Error creating order. Error: ${error}`)
+    }
+  }
+
+  async createOrderWithClient(
+    mapClient?: (client: Client) => unknown,
+    mapOrder?: (offers: Offer[]) => unknown
+  ) {
+    if (isServer()) {
+      throw new Error('Server side not allowed. Use SDK in client environment.')
+    }
+    try {
+      const client: Client = await this.createClient(mapClient)
+      const order = await this.createOrder(client.id, mapOrder)
+      return { order, client }
+    } catch (error) {
+      throw new Error(error)
+    }
   }
 }

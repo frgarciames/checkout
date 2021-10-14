@@ -32,7 +32,12 @@ module.exports = {
           type: 'category',
           label: 'Service Checkout',
           collapsed: false,
-          items: ['usage/service-checkout/offer'],
+          items: [
+            'usage/service-checkout/events',
+            'usage/service-checkout/offer',
+            'usage/service-checkout/client',
+            'usage/service-checkout/order',
+          ],
         },
       ],
     },

@@ -36,23 +36,56 @@ export default function Home(): JSX.Element {
     offers: Array.from(checkout.offers.values()),
   }))
   useEffect(() => {
-    const onCheckoutChange = (data) => {
-      console.log(data)
-      // const { shippingAddress, client, offers } = checkout
-      // setCheckoutData({
-      //   shippingAddress,
-      //   client,
-      //   offers: Array.from(offers.values()),
-      // })
-    }
-    ServiceCheckout.events.on('clientChange', onCheckoutChange)
-    ServiceCheckout.events.on('offersChange', onCheckoutChange)
-    ServiceCheckout.events.on('shippingAddressChange', onCheckoutChange)
-    return () => {
-      ServiceCheckout.events.off('clientChange', onCheckoutChange)
-      ServiceCheckout.events.off('offersChange', onCheckoutChange)
-      ServiceCheckout.events.off('shippingAddressChange', onCheckoutChange)
-    }
+    // const onCheckoutChange = (data) => {
+    //   console.log(data)
+    // }
+    // ServiceCheckout.events.on('clientChange', onCheckoutChange)
+    // ServiceCheckout.events.on('offersChange', onCheckoutChange)
+    // ServiceCheckout.events.on('shippingAddressChange', onCheckoutChange)
+    // return () => {
+    //   ServiceCheckout.events.off('clientChange', onCheckoutChange)
+    //   ServiceCheckout.events.off('offersChange', onCheckoutChange)
+    //   ServiceCheckout.events.off('shippingAddressChange', onCheckoutChange)
+    // }
+    // checkout.addOffer({
+    //   id: 32,
+    //   promotionId: 72,
+    //   products: [
+    //     {
+    //       dtype: 'orderlinephoneline',
+    //       mandatory: true,
+    //       id: 500105,
+    //       providerId: 1,
+    //       operationType: 3,
+    //       convergenceId: 227,
+    //     },
+    //     {
+    //       convergenceId: 218,
+    //       dtype: 'orderlineinsurance',
+    //       mandatory: false,
+    //       id: 500088,
+    //       providerId: 5,
+    //       enabled: false,
+    //     },
+    //   ],
+    // })
+    // checkout.shippingAddress = {
+    //   door: '2',
+    //   floor: '3',
+    //   city: 'VAL',
+    //   street: 'VALENCIA',
+    //   number: 3,
+    //   cp: '0232',
+    //   province: {
+    //     id: 5,
+    //     name: 'VALENCIA',
+    //     value: 'VALENCIA',
+    //     zone: 'ZON3',
+    //   },
+    //   streetType: {
+    //     id: '1',
+    //   },
+    // }
   }, [])
   return (
     <Layout
@@ -60,6 +93,87 @@ export default function Home(): JSX.Element {
       description="Description will go into a meta tag in <head />"
     >
       <HomepageHeader />
+      {/* <button
+        onClick={() => {
+          checkout.client = {
+            birthDate: '14-10-2003',
+            email: 'adsfa@adsfasd.com',
+            surname: 'sadf',
+            iban: 'ES1031771437733160732400',
+            identificationDocument: '15805063S',
+            identificationType: 'DNI',
+            name: 'asdf',
+            phone: '666565656',
+            secondSurname: 'asdf',
+            billingAddress: {
+              door: '2',
+              floor: '23',
+              city: 'elche',
+              street: 'alicante',
+              number: 23,
+              cp: '2323',
+              province: {
+                id: 5,
+                name: 'VALENCIA',
+                zone: 'Zona 1',
+                value: 'VALENCIA',
+              },
+              streetType: {
+                id: '2',
+              },
+            },
+          }
+        }}
+      >
+        Add client
+      </button>
+      <button
+        onClick={() => {
+          const data = checkout.createClient(
+            ({
+              surname,
+              secondSurname,
+              billingAddress: {
+                door,
+                floor,
+                city,
+                street,
+                number,
+                cp,
+                province,
+                streetType,
+              },
+              ...rest
+            }) => ({
+              firstlastname: surname,
+              secondlastname: secondSurname,
+              operator: {
+                id: 1,
+              },
+              billingAddress: {
+                streetType,
+                street,
+                number,
+                floor,
+                door,
+                cp,
+                city,
+                province,
+              },
+              ...rest,
+            })
+          )
+        }}
+      >
+        Create client
+      </button>
+      <button
+        onClick={() => {
+          checkout.createOrder(979361)
+        }}
+      >
+        Create order
+      </button> */}
       <main>{/* <HomepageFeatures />   */}</main>
     </Layout>
   )
