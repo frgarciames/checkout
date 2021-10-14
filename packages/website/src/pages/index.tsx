@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react'
 
-import HomepageFeatures from '../components/HomepageFeatures'
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
 import { ServiceCheckout } from '@finetwork/checkout'
+import { checkout } from '../lib/checkout'
 import clsx from 'clsx'
 import styles from './index.module.css'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-
-const checkout = new ServiceCheckout({
-  storage: localStorage,
-})
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
