@@ -34,7 +34,8 @@ const createOrder = async (clientId) => {
     products: [...],
     ...rest,
   })
-  const newOrder = await checkout.createOrder(newClient.id)
+  const headers = {} // Headers auth
+  const newOrder = await checkout.createOrder(newClient.id, headers)
 }
 ```
 

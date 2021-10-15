@@ -215,7 +215,11 @@ export class ServiceCheckout extends Checkout {
     }
   }
 
-  async createOrder(clientId: number, mapOrder?: (offers: Offer[]) => any) {
+  async createOrder(
+    clientId: number,
+    headers?: HeadersInit,
+    mapOrder?: (offers: Offer[]) => any
+  ) {
     if (isServer()) {
       throw new Error('Server side not allowed. Use SDK in client environment.')
     }
@@ -236,6 +240,7 @@ export class ServiceCheckout extends Checkout {
         await fetch(this.urlOrder, {
           method: 'POST',
           body: JSON.stringify(order),
+          headers: headers ?? {},
         })
       ).json()
       return data
@@ -253,7 +258,8 @@ export class ServiceCheckout extends Checkout {
     }
     try {
       const client: Client = await this.createClient(mapClient)
-      const order = await this.createOrder(client.id, mapOrder)
+      // TODO: Add auth headers
+      const order = await this.createOrder(client.id, undefined, mapOrder)
       return { order, client }
     } catch (error) {
       throw new Error(error)
