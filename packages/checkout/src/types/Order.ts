@@ -1,5 +1,5 @@
 import { Address } from './Address'
-import { DType } from './Dtype'
+import { DType } from './DType'
 
 export type OrderLine<T> = T & {
   offerId: number
