@@ -4,6 +4,7 @@ import {
   UpdateParams,
   checkoutEvents,
 } from './Checkout'
+import { Client, Offer, Operator, Order, ServiceProduct } from './types'
 import {
   cloneMap,
   getCheckoutProxy,
@@ -13,16 +14,14 @@ import {
 } from './utils'
 import mitt, { MittEmitter } from './mitt'
 
-import { Client } from './types/Client'
-import { Offer } from './types/Offer'
-import { Operator } from './types/Operator'
-import { Order } from './types/Order'
-import { ServiceProduct } from './types/Product'
 import { v4 as uuidv4 } from 'uuid'
 
 export const serviceCheckoutEvents = [
   ...checkoutEvents,
   'offersChange',
+  'shopIdChange',
+  'acceptAdvertisingChange',
+  'operatorChange',
 ] as const
 export type ServiceCheckoutEvent = typeof serviceCheckoutEvents[number]
 type ServiceCheckoutBase = {

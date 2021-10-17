@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
-import { ServiceCheckout } from '@finetwork/checkout'
 import { checkout } from '../lib/checkout'
 import clsx from 'clsx'
 import styles from './index.module.css'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
+import { useServiceCheckout } from '@finetwork/checkout-react'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
@@ -30,23 +30,8 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext()
-  const [checkoutData, setCheckoutData] = useState<any>(() => ({
-    shippingAddress: checkout.shippingAddress,
-    client: checkout.client,
-    offers: Array.from(checkout.offers.values()),
-  }))
+  const { checkout, state } = useServiceCheckout()
   useEffect(() => {
-    // const onCheckoutChange = (data) => {
-    //   console.log(data)
-    // }
-    // ServiceCheckout.events.on('clientChange', onCheckoutChange)
-    // ServiceCheckout.events.on('offersChange', onCheckoutChange)
-    // ServiceCheckout.events.on('shippingAddressChange', onCheckoutChange)
-    // return () => {
-    //   ServiceCheckout.events.off('clientChange', onCheckoutChange)
-    //   ServiceCheckout.events.off('offersChange', onCheckoutChange)
-    //   ServiceCheckout.events.off('shippingAddressChange', onCheckoutChange)
-    // }
     // checkout.addOffer({
     //   id: 32,
     //   promotionId: 72,

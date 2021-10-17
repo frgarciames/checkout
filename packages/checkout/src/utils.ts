@@ -2,11 +2,10 @@ import {
   FiberProduct,
   InsuranceProduct,
   MobileProduct,
+  Offer,
+  OrderLine,
   TvProduct,
-} from './types/Product'
-
-import { Offer } from './types/Offer'
-import { OrderLine } from './types/Order'
+} from './types'
 
 export const cloneMap = (map: Map<string, any>) => new Map(map)
 export const offersArrToMap = (arr: Offer[]) =>

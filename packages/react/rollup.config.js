@@ -33,6 +33,7 @@ export default {
       declaration: true,
       declarationDir: '',
       target: 'esnext',
+      jsx: 'react',
     }),
     generatePackageJson({
       baseContents: (pkg) => ({

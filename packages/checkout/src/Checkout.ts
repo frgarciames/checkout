@@ -1,5 +1,4 @@
-import { Address } from './types/Address'
-import { Client } from './types/Client'
+import { Address, Client } from './types'
 
 export const checkoutEvents = ['clientChange', 'shippingAddressChange'] as const
 
