@@ -17,7 +17,7 @@ jobs:
           node-version: '12.x'
           registry-url: 'https://registry.npmjs.org'
       - run: yarn
-      - run: yarn build-library-${{ github.event.inputs.typeLibrary }}
-      - run: yarn publish-library-${{ github.event.inputs.typeLibrary }} $NODE_AUTH_TOKEN
+      - run: yarn build-${{ github.event.inputs.typeLibrary }}-library
+      - run: yarn publish-${{ github.event.inputs.typeLibrary }}-library $NODE_AUTH_TOKEN
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
