@@ -4,7 +4,8 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "sh ./scripts/build.sh",
-    "publish-library": "sh ./scripts/deploy.sh"
+    "publish-library": "sh ./scripts/deploy.sh",
+    "test": "node_modules/.bin/jest"
   },
   "dependencies": {
     "uuid": "^8.3.2"
@@ -12,10 +13,12 @@
   "devDependencies": {
     "@babel/core": "^7.14.0",
     "@babel/preset-env": "^7.14.0",
+    "@babel/preset-typescript": "^7.15.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-node-resolve": "^13.0.5",
     "@rollup/plugin-typescript": "^8.2.1",
+    "@types/jest": "^27.0.2",
     "jest": "^27.2.4",
     "rollup": "^2.44.0",
     "rollup-plugin-generate-package-json": "^3.2.0",

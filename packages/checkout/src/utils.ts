@@ -1,4 +1,6 @@
 import {
+  Address,
+  Client,
   FiberProduct,
   InsuranceProduct,
   MobileProduct,
@@ -11,27 +13,34 @@ export const cloneMap = (map: Map<string, any>) => new Map(map)
 export const offersArrToMap = (arr: Offer[]) =>
   new Map(arr.map((i) => [i.uniqueId, i]))
 export const isServer = () => typeof window === 'undefined'
-export const initialAddress = {
-  door: '',
-  floor: '',
-  locality: '',
-  name: '',
-  number: null,
-  postalCode: '',
-  province: '',
-  type: null,
+export const initialAddress: Address = {
+  door: 'test',
+  floor: 'test',
+  number: 1,
+  city: 'test',
+  cp: 'test',
+  street: 'test',
+  streetType: {
+    id: '',
+  },
+  province: {
+    id: 1,
+    name: 'test',
+    value: 'test',
+    zone: 'test',
+  },
 }
-export const initialClient = {
+export const initialClient: Client = {
   billingAddress: null,
-  birthDate: '',
-  email: '',
-  iban: '',
-  identificationDocument: '',
-  identificationType: '',
-  name: '',
-  phone: '',
-  secondSurname: '',
-  surname: '',
+  birthDate: 'test',
+  email: 'test',
+  iban: 'test',
+  identificationDocument: 'test',
+  identificationType: 'test',
+  name: 'test',
+  phone: 'test',
+  secondSurname: 'test',
+  surname: 'test',
 }
 
 export const offerToOrderLines = ({
