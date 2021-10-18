@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import Layout from '@theme/Layout'
 import Link from '@docusaurus/Link'
-import { checkout } from '../lib/checkout'
 import clsx from 'clsx'
 import styles from './index.module.css'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'

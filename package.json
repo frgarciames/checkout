@@ -12,8 +12,10 @@
     "dev": "lerna exec --scope=website yarn start",
     "build-website": "lerna exec --scope=website yarn build",
     "start-website": "lerna exec --scope=website yarn serve",
-    "build-library": "lerna exec --scope=@finetwork/checkout yarn build",
-    "publish-library": "lerna exec --scope=@finetwork/checkout yarn publish-library"
+    "build-vanilla-library": "lerna exec --scope=@finetwork/checkout yarn build",
+    "build-react-library": "lerna exec --scope=@finetwork/checkout-react yarn build",
+    "publish-vanilla-library": "lerna exec --scope=@finetwork/checkout yarn publish-library",
+    "publish-react-library": "lerna exec --scope=@finetwork/checkout-react yarn publish-library"
   },
   "devDependencies": {
     "lerna": "^4.0.0",
