@@ -1537,6 +1537,13 @@
     resolve-pathname "^3.0.0"
     tslib "^2.2.0"
 
+"@finetwork/checkout@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@finetwork/checkout/-/checkout-0.1.0.tgz#5ba453af6eecff2452c884d9a7b0eadc7083d630"
+  integrity sha512-N1zSObJRQFwplbgJBlEznsU3vLU9Iw9G05sUskx9gT80zN3YvNc/a/bYKpKVbr7zezRpwJ+uQL25Jxom1V4VEg==
+  dependencies:
+    uuid "^8.3.2"
+
 "@gar/promisify@^1.0.1":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@gar/promisify/-/promisify-1.1.2.tgz#30aa825f11d438671d585bd44e7fd564535fc210"
