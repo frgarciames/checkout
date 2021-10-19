@@ -5,7 +5,8 @@ import Link from '@docusaurus/Link'
 import clsx from 'clsx'
 import styles from './index.module.css'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
-import { useServiceCheckout } from '@finetwork/checkout-react'
+
+// import { useServiceCheckout } from '@finetwork/checkout-react'
 
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext()
@@ -29,7 +30,7 @@ function HomepageHeader() {
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext()
-  const { checkout, state } = useServiceCheckout()
+  // const { checkout, state } = useServiceCheckout()
   useEffect(() => {
     // checkout.addOffer({
     //   id: 32,
