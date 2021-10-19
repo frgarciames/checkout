@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Offer
 
-Import checkout previously initalized, and manipulate offers.
+Import checkout previously initialized, and manipulate offers.
 As offers is a Map, it generates a unique id to easy manipulate offers, so each offer has uniqueId attribute.
 
 ## Add offer

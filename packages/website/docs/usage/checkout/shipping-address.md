@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Shipping address
 
-Import checkout previously initalized, and add client data.
+Import checkout previously initialized, and add client data.
 
 ## Add shipping address
 
