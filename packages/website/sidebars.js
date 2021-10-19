@@ -39,6 +39,16 @@ module.exports = {
             'usage/service-checkout/order',
           ],
         },
+        {
+          type: 'category',
+          label: 'React',
+          collapsed: false,
+          items: [
+            'usage/react/install',
+            'usage/react/config',
+            'usage/react/usage',
+          ],
+        },
       ],
     },
   ],
